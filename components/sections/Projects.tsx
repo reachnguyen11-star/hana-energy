@@ -85,11 +85,11 @@ export function Projects() {
     <section
       ref={sectionRef}
       id="du-an"
-      className="relative py-24 lg:py-32"
+      className="relative py-16 sm:py-20 lg:py-32"
     >
       <div className="mx-auto max-w-[1100px] px-4 sm:px-6 lg:px-8">
 
-        <div className="text-on-image mb-14 text-center">
+        <div className="text-on-image mb-10 sm:mb-14 text-center">
           <p className="text-brand-300 text-sm font-semibold uppercase tracking-widest mb-3">
             {pr.sectionLabel}
           </p>

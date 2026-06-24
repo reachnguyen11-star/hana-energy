@@ -176,9 +176,9 @@ export function BusinessSolutions() {
         }}
       />
 
-      <div className="relative z-[2] mx-auto max-w-[1200px] px-5 sm:px-8 py-20 lg:py-28">
+      <div className="relative z-[2] mx-auto max-w-[1200px] px-5 sm:px-8 py-14 sm:py-20 lg:py-28">
 
-        <p className="mb-10 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#34C36A" }}>
+        <p className="mb-8 sm:mb-10 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: "#34C36A" }}>
           {bs.sectionLabel}
         </p>
 

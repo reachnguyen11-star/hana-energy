@@ -360,11 +360,11 @@ export function Solutions() {
       <section
         ref={sectionRef}
         id="giai-phap"
-        className="bg-[#F4F5F2] py-24 lg:py-32"
+        className="bg-[#F4F5F2] py-16 sm:py-20 lg:py-32"
       >
         <div className="mx-auto max-w-[1100px] px-5 sm:px-6">
 
-          <div className="mb-14">
+          <div className="mb-9 sm:mb-14">
             <WordReveal
               tag="h2"
               segments={[
@@ -374,8 +374,8 @@ export function Solutions() {
                 <br key="br" />,
                 s.wordParts[2],
               ]}
-              className="font-black leading-[1.15] tracking-tight"
-              style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)" }}
+              className="font-black leading-[1.12] tracking-tight"
+              style={{ fontSize: "clamp(1.6rem, 6vw, 3.4rem)" }}
               start="top 85%"
               end="bottom 25%"
             />
@@ -383,8 +383,8 @@ export function Solutions() {
             <WordReveal
               tag="p"
               segments={[s.sub]}
-              className="mt-3 font-black leading-[1.15] tracking-tight"
-              style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)" }}
+              className="mt-3 font-black leading-[1.12] tracking-tight"
+              style={{ fontSize: "clamp(1.6rem, 6vw, 3.4rem)" }}
               start="top 82%"
               end="bottom 22%"
             />

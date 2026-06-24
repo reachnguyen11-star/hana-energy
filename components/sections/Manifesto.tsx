@@ -52,9 +52,9 @@ export function Manifesto() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-28 bg-[#F4F5F2]">
+    <section ref={sectionRef} className="py-16 sm:py-20 lg:py-28 bg-[#F4F5F2]">
       <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-14 items-center">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-center">
 
           {/* LEFT — Manifesto quote */}
           <div data-manifesto-left>

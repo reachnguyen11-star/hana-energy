@@ -18,3 +18,5 @@ next-env.d.ts
 /remove_bg.py
 /stitch_html.html
 /public/screenshot_1782198287.png
+
+.vercel

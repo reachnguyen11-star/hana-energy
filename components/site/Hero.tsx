@@ -60,17 +60,17 @@ export function Hero() {
                 <RotatingHeadline phrases={h.rotatingPhrases} />
               </h1>
 
-              <div data-reveal className="mt-8 flex items-center gap-3">
+              <div data-reveal className="mt-8 flex flex-wrap items-center gap-3">
                 <a
                   href="#giai-phap"
-                  className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-base font-bold text-navy transition-all hover:bg-brand-50 active:translate-y-px"
+                  className="group inline-flex items-center gap-3 whitespace-nowrap rounded-full bg-white px-6 py-3.5 text-base font-bold text-navy transition-all hover:bg-brand-50 active:translate-y-px sm:px-7 sm:py-4"
                 >
                   {h.cta1}
                   <ArrowUpRight size={20} weight="bold" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <a
                   href="#lien-he"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 active:translate-y-px"
+                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/25 bg-navy-900/35 px-6 py-3.5 text-base font-semibold text-white backdrop-blur-md transition-all hover:bg-navy-900/50 active:translate-y-px sm:py-4"
                 >
                   {h.cta2}
                 </a>

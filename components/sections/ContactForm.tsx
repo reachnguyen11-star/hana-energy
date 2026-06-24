@@ -34,9 +34,9 @@ export function ContactForm() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} id="lien-he" className="bg-[#F4F5F2] py-24 lg:py-32">
+    <section ref={sectionRef} id="lien-he" className="bg-[#F4F5F2] py-16 sm:py-20 lg:py-32">
       <div className="max-w-[1100px] mx-auto px-6">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-start">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
 
           {/* LEFT — CTA Copy */}
           <div data-contact-left>

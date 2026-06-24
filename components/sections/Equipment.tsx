@@ -20,10 +20,10 @@ export function Equipment() {
   const eq = t.equipment;
 
   return (
-    <section id="thiet-bi" className="relative py-24 lg:py-28">
+    <section id="thiet-bi" className="relative py-16 sm:py-20 lg:py-28">
       <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
 
-        <div className="text-on-image text-center mb-14">
+        <div className="text-on-image text-center mb-10 sm:mb-14">
           <p className="text-brand-300 text-sm font-semibold uppercase tracking-widest mb-3">
             {eq.sectionLabel}
           </p>

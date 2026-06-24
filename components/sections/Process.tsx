@@ -38,14 +38,14 @@ export function Process() {
   const activeStepT = p.steps[activeIdx];
 
   return (
-    <section id="quy-trinh" className="relative bg-[#F4F5F2] py-24 lg:py-28">
+    <section id="quy-trinh" className="relative bg-[#F4F5F2] py-16 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-[1100px] px-5 sm:px-6">
 
         <div className="mb-6 bg-[#F4F5F2]">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#34C36A]">
             {p.sectionLabel}
           </p>
-          <h2 className="mt-4 max-w-xl text-3xl font-extrabold leading-[1.1] tracking-tight text-[#0E1B2A] sm:text-4xl lg:text-[2.6rem]">
+          <h2 className="mt-4 max-w-xl text-[1.7rem] font-extrabold leading-[1.12] tracking-tight text-[#0E1B2A] sm:text-4xl lg:text-[2.6rem]">
             <em className="not-italic">{p.headingNormal}</em>{" "}
             <em className="italic font-extrabold">{p.headingItalic}</em>{" "}
             {p.headingTail}
@@ -55,7 +55,7 @@ export function Process() {
           </p>
         </div>
 
-        <div className="grid items-start gap-14 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid items-start gap-10 lg:gap-14 lg:grid-cols-[0.9fr_1.1fr]">
 
           {/* LEFT: Sticky image card */}
           <div className="lg:sticky lg:top-[14vh]">
@@ -121,7 +121,7 @@ export function Process() {
                 <div
                   key={step.step}
                   data-proc-step={i}
-                  className={`proc-step grid grid-cols-[3rem_1fr] items-start gap-4 px-2 py-9 first:pt-0 transition-all duration-300 lg:px-4 ${
+                  className={`proc-step grid grid-cols-[2.5rem_1fr] items-start gap-3 px-1 py-6 first:pt-0 transition-all duration-300 sm:gap-4 sm:px-2 sm:py-9 lg:px-4 ${
                     isActive ? "is-active" : "opacity-40"
                   }`}
                 >
