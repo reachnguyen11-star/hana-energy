@@ -369,6 +369,7 @@ export function Solutions() {
               tag="h2"
               segments={[
                 s.wordParts[0],
+                <br key="br0" />,
                 <SolarBadge key="badge" />,
                 s.wordParts[1],
                 <br key="br" />,
