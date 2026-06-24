@@ -78,7 +78,7 @@ export function Metrics() {
               src="/039571c3-8e40-4dc0-a7d2-2551ce8c1cae.png"
               alt="Hana Energy Solar Panels"
               fill
-              className="object-cover"
+              className="object-cover object-bottom"
             />
           </div>
 
