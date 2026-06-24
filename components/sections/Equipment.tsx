@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   SunDim,
@@ -6,106 +8,99 @@ import {
   Wrench,
   CheckCircle,
   ShieldCheck,
+  Star,
 } from "@phosphor-icons/react/dist/ssr";
 import { EQUIPMENT } from "@/lib/data";
+import { useT } from "@/contexts/LangContext";
 
-/* Logo thật trong /public/equipment/ — key khớp với brand name */
-const BRAND_LOGOS: Record<string, string> = {
-  "LONGi":    "/equipment/longi.png",
-  "JA Solar": "/equipment/ja-solar.png",
-  "Jinko":    "/equipment/jinko.png",
-  "Huawei":   "/equipment/huawei.png",
-  "Sungrow":  "/equipment/sungrow.png",
-};
-
-const ICONS = [SunDim, Lightning, BatteryCharging, Wrench];
-
-const BENEFITS = [
-  "Bảo hành chính hãng 12-25 năm",
-  "Hiệu suất cao, suy hao thấp theo thời gian",
-  "Đầy đủ chứng nhận CO/CQ & kiểm định",
-];
+const CATEGORY_ICONS = [SunDim, Lightning, BatteryCharging, Wrench];
 
 export function Equipment() {
+  const t = useT();
+  const eq = t.equipment;
+
   return (
-    <section className="bg-cream py-20 lg:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-6">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-14">
-          {/* ===== TRÁI: Intro + lợi ích ===== */}
-          <div data-reveal className="lg:sticky lg:top-28">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-600">
-              Tiêu chuẩn thiết bị
-            </p>
-            <h2 className="mt-4 text-3xl font-extrabold leading-[1.12] tracking-tight text-navy sm:text-4xl">
-              Chỉ dùng thiết bị Tier-1
-            </h2>
-            <p className="mt-4 max-w-md text-base text-navy/60">
-              Hana lựa chọn các thương hiệu hàng đầu thế giới để đảm bảo hiệu suất và độ bền cho
-              toàn bộ vòng đời hệ thống.
-            </p>
+    <section id="thiet-bi" className="relative py-24 lg:py-28">
+      <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
 
-            <ul className="mt-7 space-y-3">
-              {BENEFITS.map((b) => (
-                <li key={b} className="flex items-start gap-3">
-                  <CheckCircle size={22} weight="fill" className="mt-0.5 shrink-0 text-brand-500" />
-                  <span className="text-navy/80">{b}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4">
-              <ShieldCheck size={30} weight="fill" className="shrink-0 text-brand-600" />
-              <span className="text-sm font-semibold leading-tight text-brand-700">
-                Cam kết thiết bị chính hãng,
-                <br />
-                truy xuất nguồn gốc minh bạch.
-              </span>
-            </div>
-          </div>
-
-          {/* ===== PHẢI: Lưới card thương hiệu ===== */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            {EQUIPMENT.map((e, i) => {
-              const Icon = ICONS[i];
-              return (
-                <article
-                  key={e.category}
-                  data-reveal
-                  className="group flex flex-col rounded-[var(--radius-card)] border border-navy/8 bg-paper p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-[0_16px_50px_rgba(7,24,43,0.08)]"
-                >
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                    <Icon size={26} weight="duotone" />
-                  </span>
-                  <h3 className="mt-5 font-bold text-navy">{e.category}</h3>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {e.brands.map((b) => (
-                      <li key={b}>
-                        {BRAND_LOGOS[b] ? (
-                          /* Logo thật: nền trắng, chiều cao cố định */
-                          <div className="flex h-9 items-center rounded-xl border border-navy/8 bg-white px-3 py-1.5 shadow-sm transition-shadow hover:shadow-md">
-                            <div className="relative h-5 w-20">
-                              <Image
-                                src={BRAND_LOGOS[b]}
-                                alt={b}
-                                fill
-                                sizes="80px"
-                                className="object-contain"
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <span className="rounded-full bg-mist px-3 py-1 text-xs font-semibold text-navy/70">
-                            {b}
-                          </span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              );
-            })}
-          </div>
+        <div className="text-on-image text-center mb-14">
+          <p className="text-brand-300 text-sm font-semibold uppercase tracking-widest mb-3">
+            {eq.sectionLabel}
+          </p>
+          <h2 className="text-white text-3xl sm:text-4xl font-bold leading-tight mb-4">
+            {eq.headingPrefix}{" "}
+            <em className="text-[#5FD089] font-serif not-italic italic">
+              {eq.headingEm}
+            </em>
+          </h2>
+          <p className="text-white/90 text-base max-w-xl mx-auto leading-relaxed">
+            {eq.sub}
+          </p>
         </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {eq.items.map((item, idx) => {
+            const Icon = CATEGORY_ICONS[idx % CATEGORY_ICONS.length];
+            const brands = EQUIPMENT[idx]?.brands ?? [];
+            return (
+              <div
+                key={item.category}
+                data-reveal
+                className="flex flex-col bg-[#0E1B2A]/15 border border-white/15 rounded-[16px] p-7 backdrop-blur-sm hover:bg-[#0E1B2A]/25 hover:border-brand-500/40 transition-all duration-300"
+              >
+                <Icon weight="duotone" size={28} className="text-brand-300 mb-4" />
+                <h3 className="text-white font-bold text-base mb-1">
+                  {item.category}
+                </h3>
+                <p className="text-white/65 text-xs leading-relaxed mb-5">
+                  {item.desc}
+                </p>
+
+                <div className="mt-auto flex flex-row items-center gap-3 w-full">
+                  {brands.map((brand) =>
+                    brand.logo ? (
+                      <span
+                        key={brand.name}
+                        title={brand.name}
+                        className="inline-flex h-11 items-center justify-start min-w-0"
+                      >
+                        <Image
+                          src={brand.logo}
+                          alt={brand.name}
+                          width={140}
+                          height={42}
+                          className={`${
+                            ["Jinko", "Huawei", "Sungrow"].includes(brand.name) ? "h-[36px] sm:h-[42px]" : "h-[24px]"
+                          } w-auto max-w-full object-contain brightness-0 invert opacity-90`}
+                        />
+                      </span>
+                    ) : (
+                      <span
+                        key={brand.name}
+                        className="inline-flex items-center rounded-lg bg-white/[0.08] px-3.5 py-2.5 text-xs font-semibold text-white/70"
+                      >
+                        {brand.name}
+                      </span>
+                    )
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-12 mx-auto w-fit flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-9 rounded-2xl border border-white/15 bg-[#0E1B2A]/15 px-7 py-4 backdrop-blur-sm">
+          {eq.benefits.map((benefit, i) => {
+            const BenefitIcon = [CheckCircle, ShieldCheck, Star][i % 3];
+            return (
+              <div key={i} className="flex items-center gap-2">
+                <BenefitIcon weight="duotone" size={20} className="text-brand-300 shrink-0" />
+                <span className="text-white/90 text-sm">{benefit}</span>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

@@ -36,7 +36,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi" suppressHydrationWarning className={`${beVietnam.variable} ${playfair.variable}`}>
-      <body className="font-sans">
+      <body suppressHydrationWarning className="font-sans">
         {/* Anti-FOUC: ẩn phần tử reveal trước paint, GSAP sẽ animate hiện vào */}
         <script
           dangerouslySetInnerHTML={{

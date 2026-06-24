@@ -1,186 +1,187 @@
 "use client";
 
-import { useState } from "react";
-import { Phone, EnvelopeSimple, PaperPlaneTilt } from "@phosphor-icons/react";
+import { useRef } from "react";
+import { Phone, EnvelopeSimple, MapPin } from "@phosphor-icons/react/dist/ssr";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useT } from "@/contexts/LangContext";
 import { COMPANY } from "@/lib/data";
 
-const telHref = "tel:" + COMPANY.hotline.replace(/\./g, "");
+gsap.registerPlugin(ScrollTrigger);
 
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
-  const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const sectionRef = useRef<HTMLElement>(null);
+  const t = useT();
+  const c = t.contact;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    const newErrors: Record<string, boolean> = {};
+  useGSAP(() => {
+    const el = sectionRef.current;
+    if (!el) return;
 
-    if (!data.get("name")?.toString().trim()) newErrors.name = true;
-    const phone = data.get("phone")?.toString().trim() ?? "";
-    if (!phone || !/^[0-9 ]{9,15}$/.test(phone)) newErrors.phone = true;
-    if (!data.get("solution")?.toString().trim()) newErrors.solution = true;
+    const st = { trigger: el, start: "top 78%", once: true };
 
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
-
-    // TODO: Gửi dữ liệu tới Google Sheets / API
-    setSent(true);
-    form.reset();
-  }
+    gsap.fromTo(
+      el.querySelector("[data-contact-left]"),
+      { x: -50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: st }
+    );
+    gsap.fromTo(
+      el.querySelector("[data-contact-form]"),
+      { y: 40, opacity: 0, scale: 0.97 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: "power3.out", delay: 0.18, scrollTrigger: st }
+    );
+  }, { scope: sectionRef });
 
   return (
-    <section id="lien-he" className="relative overflow-hidden bg-[#051610] py-20 lg:py-28">
-      {/* Background image + overlay */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/background-section-3-hana-energy.jpg"
-          alt=""
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-900/95 via-navy-900/85 to-navy-900/80" />
-      </div>
+    <section ref={sectionRef} id="lien-he" className="bg-[#F4F5F2] py-24 lg:py-32">
+      <div className="max-w-[1100px] mx-auto px-6">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-start">
 
-      <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:items-center">
-        {/* ====== LEFT: Heading + contact info ====== */}
-        <div data-reveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-400">
-            Bắt đầu
-          </p>
-          <h2 className="mt-4 text-3xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-4xl lg:text-[2.8rem]">
-            Đặt lịch khảo sát mái nhà máy miễn phí
-          </h2>
-          <p className="mt-5 max-w-md text-base text-white/65">
-            Gửi thông tin, đội kỹ thuật sẽ phản hồi trong vòng 24 giờ kèm ước tính sản lượng và
-            thời gian hoàn vốn sơ bộ.
-          </p>
+          {/* LEFT — CTA Copy */}
+          <div data-contact-left>
+            <p className="text-xs font-semibold tracking-widest uppercase text-[#1AA64B] mb-4">
+              {c.sectionLabel}
+            </p>
 
-          <div className="mt-8 grid gap-4">
-            <a
-              href={telHref}
-              className="flex items-center gap-3 text-white transition-colors hover:text-brand-300"
-            >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-brand-400">
-                <Phone size={20} weight="fill" />
-              </span>
-              <span className="font-semibold">{COMPANY.hotline}</span>
-            </a>
-            <a
-              href={`mailto:${COMPANY.email}`}
-              className="flex items-center gap-3 text-white transition-colors hover:text-brand-300"
-            >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-brand-400">
-                <EnvelopeSimple size={20} weight="fill" />
-              </span>
-              <span className="font-semibold">{COMPANY.email}</span>
-            </a>
-          </div>
-        </div>
+            <h2 className="text-4xl lg:text-5xl font-black text-[#0E1B2A] leading-[1.1]">
+              {c.heading1}
+              <br />
+              <em className="font-black italic"> {c.heading2}</em>
+            </h2>
 
-        {/* ====== RIGHT: Lead form ====== */}
-        <form
-          data-reveal
-          className="rounded-3xl border border-white/[0.14] bg-white/[0.06] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-lg sm:p-9"
-          onSubmit={handleSubmit}
-          noValidate
-        >
-          {sent && (
-            <div className="mb-5 rounded-2xl border border-brand-400/40 bg-brand-400/15 px-5 py-4 text-sm text-white">
-              Đã nhận thông tin. Đội kỹ thuật sẽ liên hệ trong 24 giờ.
-            </div>
-          )}
+            <p className="text-[#7A7A7A] leading-relaxed mt-5 text-base">
+              {c.sub}
+            </p>
 
-          {/* Họ tên */}
-          <div className="mb-5">
-            <label htmlFor="f-name" className="mb-2 block text-sm text-white/75">
-              Họ và tên
-            </label>
-            <input
-              type="text"
-              id="f-name"
-              name="name"
-              placeholder="Nguyễn Văn An"
-              required
-              onChange={() => setErrors((e) => ({ ...e, name: false }))}
-              className={`w-full rounded-xl border bg-navy-900/40 px-4 py-3.5 text-white placeholder-white/35 transition-all focus:outline-none focus:ring-2 ${
-                errors.name
-                  ? "border-red-400/70 focus:ring-red-400/30"
-                  : "border-white/[0.18] focus:border-brand-400 focus:ring-brand-400/25"
-              }`}
-            />
-            {errors.name && <p className="mt-1.5 text-xs text-red-300">Vui lòng nhập họ tên.</p>}
-          </div>
+            <div className="mt-8 space-y-4">
+              <a
+                href={`tel:${COMPANY.hotline.replace(/\s/g, "")}`}
+                className="flex gap-3 items-center text-[#0E1B2A] font-bold text-xl hover:text-[#1AA64B] transition-colors"
+              >
+                <Phone size={24} weight="bold" className="shrink-0 text-[#1AA64B]" />
+                {COMPANY.hotline}
+              </a>
 
-          {/* SĐT + Công ty */}
-          <div className="mb-5 grid gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="f-phone" className="mb-2 block text-sm text-white/75">
-                Số điện thoại
-              </label>
-              <input
-                type="tel"
-                id="f-phone"
-                name="phone"
-                placeholder="09xx xxx xxx"
-                required
-                onChange={() => setErrors((e) => ({ ...e, phone: false }))}
-                className={`w-full rounded-xl border bg-navy-900/40 px-4 py-3.5 text-white placeholder-white/35 transition-all focus:outline-none focus:ring-2 ${
-                  errors.phone
-                    ? "border-red-400/70 focus:ring-red-400/30"
-                    : "border-white/[0.18] focus:border-brand-400 focus:ring-brand-400/25"
-                }`}
-              />
-              {errors.phone && <p className="mt-1.5 text-xs text-red-300">Số điện thoại chưa hợp lệ.</p>}
-            </div>
-            <div>
-              <label htmlFor="f-company" className="mb-2 block text-sm text-white/75">
-                Công ty / nhà máy
-              </label>
-              <input
-                type="text"
-                id="f-company"
-                name="company"
-                placeholder="Tên doanh nghiệp"
-                className="w-full rounded-xl border border-white/[0.18] bg-navy-900/40 px-4 py-3.5 text-white placeholder-white/35 transition-all focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/25"
-              />
+              <a
+                href={`mailto:${COMPANY.email}`}
+                className="flex gap-3 items-center text-[#7A7A7A] text-sm hover:text-[#1AA64B] transition-colors"
+              >
+                <EnvelopeSimple size={20} weight="regular" className="shrink-0 text-[#1AA64B]" />
+                {COMPANY.email}
+              </a>
+
+              <div className="flex gap-3 items-start text-[#7A7A7A] text-sm">
+                <MapPin size={20} weight="regular" className="shrink-0 text-[#1AA64B] mt-0.5" />
+                <span>{COMPANY.address}</span>
+              </div>
             </div>
           </div>
 
-          {/* Giải pháp */}
-          <div className="mb-6">
-            <label htmlFor="f-sol" className="mb-2 block text-sm text-white/75">
-              Giải pháp quan tâm
-            </label>
-            <select
-              id="f-sol"
-              name="solution"
-              required
-              onChange={() => setErrors((e) => ({ ...e, solution: false }))}
-              className={`w-full rounded-xl border bg-navy-900/40 px-4 py-3.5 text-white transition-all focus:outline-none focus:ring-2 ${
-                errors.solution
-                  ? "border-red-400/70 focus:ring-red-400/30"
-                  : "border-white/[0.18] focus:border-brand-400 focus:ring-brand-400/25"
-              }`}
-            >
-              <option value="">— Chọn giải pháp —</option>
-              <option>Điện mặt trời áp mái</option>
-              <option>Pin lưu trữ BESS</option>
-              <option>Hạ tầng điện công nghiệp</option>
-              <option>Tư vấn tổng thể</option>
-            </select>
-            {errors.solution && <p className="mt-1.5 text-xs text-red-300">Vui lòng chọn giải pháp.</p>}
-          </div>
-
-          {/* Submit */}
-          <button
-            type="submit"
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-6 py-4 text-base font-bold text-white shadow-[0_8px_28px_rgba(26,166,75,0.45)] transition-all hover:bg-brand-400 active:translate-y-px"
+          {/* RIGHT — Contact Form */}
+          <div
+            data-contact-form
+            className="bg-white rounded-[22px] border border-[#0E1B2A]/[0.08] p-8 shadow-[0_16px_60px_rgba(14,27,42,0.08)]"
           >
-            <PaperPlaneTilt size={20} weight="fill" />
-            Gửi yêu cầu khảo sát
-          </button>
-        </form>
+            <form
+              action={`mailto:${COMPANY.email}`}
+              method="post"
+              encType="text/plain"
+              className="space-y-5"
+            >
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-[#0E1B2A] uppercase tracking-wide">
+                  {c.fieldName}
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={c.fieldNamePlaceholder}
+                  className="w-full border border-[#0E1B2A]/[0.12] rounded-xl px-4 py-3 text-[#0E1B2A] placeholder-[#7A7A7A]/60 focus:outline-none focus:border-[#1AA64B] text-sm bg-[#F4F5F2] transition-colors"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-[#0E1B2A] uppercase tracking-wide">
+                  {c.fieldPhone}
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder={c.fieldPhonePlaceholder}
+                  className="w-full border border-[#0E1B2A]/[0.12] rounded-xl px-4 py-3 text-[#0E1B2A] placeholder-[#7A7A7A]/60 focus:outline-none focus:border-[#1AA64B] text-sm bg-[#F4F5F2] transition-colors"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-[#0E1B2A] uppercase tracking-wide">
+                  {c.fieldEmail}
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={c.fieldEmailPlaceholder}
+                  className="w-full border border-[#0E1B2A]/[0.12] rounded-xl px-4 py-3 text-[#0E1B2A] placeholder-[#7A7A7A]/60 focus:outline-none focus:border-[#1AA64B] text-sm bg-[#F4F5F2] transition-colors"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-[#0E1B2A] uppercase tracking-wide">
+                  {c.fieldService}
+                </label>
+                <select
+                  name="service"
+                  className="w-full border border-[#0E1B2A]/[0.12] rounded-xl px-4 py-3 text-[#0E1B2A] focus:outline-none focus:border-[#1AA64B] text-sm bg-[#F4F5F2] transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="">{c.fieldServicePlaceholder}</option>
+                  {c.services.map((s) => (
+                    <option key={s.value} value={s.value}>{s.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-[#0E1B2A] uppercase tracking-wide">
+                  {c.fieldCapacity}
+                </label>
+                <select
+                  name="capacity"
+                  className="w-full border border-[#0E1B2A]/[0.12] rounded-xl px-4 py-3 text-[#0E1B2A] focus:outline-none focus:border-[#1AA64B] text-sm bg-[#F4F5F2] transition-colors appearance-none cursor-pointer"
+                >
+                  <option value="">{c.fieldCapacityPlaceholder}</option>
+                  {c.capacities.map((cap) => (
+                    <option key={cap.value} value={cap.value}>{cap.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-[#0E1B2A] uppercase tracking-wide">
+                  {c.fieldMessage}{" "}
+                  <span className="text-[#7A7A7A] normal-case font-normal">{c.fieldMessageOptional}</span>
+                </label>
+                <textarea
+                  name="message"
+                  rows={3}
+                  placeholder={c.fieldMessagePlaceholder}
+                  className="w-full border border-[#0E1B2A]/[0.12] rounded-xl px-4 py-3 text-[#0E1B2A] placeholder-[#7A7A7A]/60 focus:outline-none focus:border-[#1AA64B] text-sm bg-[#F4F5F2] transition-colors resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full rounded-full bg-[#1AA64B] text-white font-bold py-4 text-base hover:bg-[#138A3E] transition-colors mt-2"
+              >
+                {c.submit}
+              </button>
+            </form>
+
+            <p className="text-xs text-[#7A7A7A] text-center mt-3">
+              {c.commitment}
+            </p>
+          </div>
+
+        </div>
       </div>
     </section>
   );

@@ -55,24 +55,48 @@ export const SOLUTIONS = [
   },
 ] as const;
 
-/** Quy trình triển khai 8 bước */
+/** Quy trình triển khai 5 bước */
 export const PROCESS = [
-  { step: "01", title: "Khảo sát hiện trạng", desc: "Đo đạc mái, kết cấu, hệ thống điện và điều kiện đấu nối tại nhà máy.", image: "hana-step1" },
-  { step: "02", title: "Phân tích phụ tải", desc: "Đọc dữ liệu tiêu thụ và biểu giá điện để xác định công suất tối ưu.", image: "hana-step2" },
-  { step: "03", title: "Thiết kế hệ thống", desc: "Lập bản vẽ kỹ thuật, chọn thiết bị và mô phỏng sản lượng dự kiến.", image: "hana-step3" },
-  { step: "04", title: "Đề xuất tài chính", desc: "Trình phương án đầu tư, thời gian hoàn vốn và mô hình PPA nếu phù hợp.", image: "hana-step4" },
-  { step: "05", title: "Thi công lắp đặt", desc: "Triển khai theo tiến độ cam kết, giám sát an toàn lao động xuyên suốt.", image: "hana-step5" },
-  { step: "06", title: "Kiểm tra & nghiệm thu", desc: "Đo kiểm chất lượng, bàn giao hồ sơ hoàn công đầy đủ.", image: "hana-step6" },
-  { step: "07", title: "Đấu nối & vận hành", desc: "Hòa lưới, cấu hình giám sát và hướng dẫn vận hành cho đội kỹ thuật.", image: "hana-step7" },
-  { step: "08", title: "Giám sát & bảo trì", desc: "Theo dõi sản lượng từ xa và bảo trì định kỳ trong suốt vòng đời.", image: "hana-step8" },
+  { step: "01", title: "Phân tích hiện trạng", desc: "Khảo sát mái, đo phụ tải thực tế và hệ thống điện hiện hữu để xác định công suất tối ưu.", image: "/background-section-3-hana-energy.jpg" },
+  { step: "02", title: "Thiết kế & kết cấu", desc: "Lập bản vẽ kỹ thuật, chọn thiết bị Tier-1, mô phỏng sản lượng và đề xuất phương án tài chính/PPA.", image: "/background-section-2-hana-energy.jpg" },
+  { step: "03", title: "Thi công & lắp đặt", desc: "Triển khai theo tiến độ cam kết, giám sát an toàn lao động, nghiệm thu và hòa lưới điện.", image: "/projects/thuan-an.png" },
+  { step: "04", title: "Đo lường & báo cáo phát thải", desc: "Đo kiểm sản lượng thực tế, lập báo cáo tiết kiệm năng lượng và giảm phát thải CO₂.", image: "/projects/dong-quang.png" },
+  { step: "05", title: "Vận hành & bảo trì", desc: "Giám sát từ xa 24/7, cảnh báo sự cố, bảo trì định kỳ trong suốt vòng đời hệ thống.", image: "/projects/sai-gon-long-an.jpg" },
 ] as const;
 
-/** Tiêu chuẩn thiết bị */
+/** Tiêu chuẩn thiết bị — logo: đường dẫn trong /public/equipment (null nếu chưa có logo) */
 export const EQUIPMENT = [
-  { category: "Tấm pin", brands: ["LONGi", "JA Solar", "Jinko"] },
-  { category: "Inverter", brands: ["Huawei", "Sungrow"] },
-  { category: "Lưu trữ (BESS)", brands: ["Pin Lithium công nghiệp"] },
-  { category: "Khung đỡ", brands: ["Khung mạ kẽm / nhôm định hình"] },
+  {
+    category: "Tấm pin",
+    desc: "Mô-đun hiệu suất cao, suy hao thấp",
+    brands: [
+      { name: "LONGi", logo: "/equipment/longi.png" },
+      { name: "JA Solar", logo: "/equipment/ja-solar.png" },
+      { name: "Jinko", logo: "/equipment/jinko.png" },
+    ],
+  },
+  {
+    category: "Inverter",
+    desc: "Biến tần chuỗi & trung tâm, giám sát từ xa",
+    brands: [
+      { name: "Huawei", logo: "/equipment/huawei.png" },
+      { name: "Sungrow", logo: "/equipment/sungrow.png" },
+    ],
+  },
+  {
+    category: "Lưu trữ (BESS)",
+    desc: "Pin Lithium công nghiệp, vòng đời dài",
+    brands: [
+      { name: "Pin Lithium công nghiệp", logo: null },
+    ],
+  },
+  {
+    category: "Khung đỡ",
+    desc: "Khung mạ kẽm / nhôm định hình chống ăn mòn",
+    brands: [
+      { name: "Khung mạ kẽm / nhôm định hình", logo: null },
+    ],
+  },
 ] as const;
 
 export const NAV_LINKS = [
