@@ -397,8 +397,8 @@ export function Solutions() {
             <WordReveal
               tag="p"
               segments={[s.sub]}
-              className="mt-3 font-black leading-[1.12] tracking-tight"
-              style={{ fontSize: "clamp(1.12rem, 4.9vw, 3.4rem)" }}
+              className="mt-3 font-black leading-[1.15] tracking-tight whitespace-nowrap"
+              style={{ fontSize: "clamp(0.82rem, 3.7vw, 2.6rem)" }}
               start="top 82%"
               end="bottom 22%"
             />
