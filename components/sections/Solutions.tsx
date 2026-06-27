@@ -389,7 +389,7 @@ export function Solutions() {
                 s.wordParts[2],
               ]}
               className="font-black leading-[1.12] tracking-tight"
-              style={{ fontSize: "clamp(1.6rem, 6vw, 3.4rem)" }}
+              style={{ fontSize: "clamp(1.12rem, 4.9vw, 3.4rem)" }}
               start="top 85%"
               end="bottom 25%"
             />
@@ -398,7 +398,7 @@ export function Solutions() {
               tag="p"
               segments={[s.sub]}
               className="mt-3 font-black leading-[1.12] tracking-tight"
-              style={{ fontSize: "clamp(1.6rem, 6vw, 3.4rem)" }}
+              style={{ fontSize: "clamp(1.12rem, 4.9vw, 3.4rem)" }}
               start="top 82%"
               end="bottom 22%"
             />
