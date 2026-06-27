@@ -58,7 +58,6 @@ function useTilt<T extends HTMLElement>(options: TiltOptions = {}): RefObject<T 
       }
 
       if (glow) {
-        const rect = el.getBoundingClientRect()
         const pctX = (currentMx / parallax + 0.5) * 100
         const pctY = (currentMy / parallax + 0.5) * 100
         el.style.setProperty('--mx', `${pctX}%`)

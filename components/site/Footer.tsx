@@ -53,7 +53,9 @@ export function Footer() {
 
             <div className="mt-5 flex items-center gap-3">
               <a
-                href="#"
+                href={COMPANY.website}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Website"
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.15] text-white/80 backdrop-blur-sm transition-colors hover:bg-white/[0.25] hover:text-white"
               >

@@ -96,7 +96,7 @@ export function Manifesto() {
                 </h3>
 
                 <a
-                  href="#"
+                  href="#lien-he"
                   className="inline-block text-sm font-semibold text-[#1AA64B] mt-3 hover:underline"
                 >
                   {m.readMore}

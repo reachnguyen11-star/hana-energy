@@ -33,7 +33,6 @@ import { useRef } from "react";
    ========================================================================= */
 export function ScrollVideoSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
     <section

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { Phone, EnvelopeSimple, MapPin } from "@phosphor-icons/react/dist/ssr";
+import { useRef, useState } from "react";
+import { Phone, EnvelopeSimple, MapPin, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,10 +10,52 @@ import { COMPANY } from "@/lib/data";
 
 gsap.registerPlugin(ScrollTrigger);
 
+type Status = "idle" | "loading" | "success" | "error";
+
 export function ContactForm() {
   const sectionRef = useRef<HTMLElement>(null);
   const t = useT();
   const c = t.contact;
+
+  const [status, setStatus] = useState<Status>("idle");
+  const [errMsg, setErrMsg] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const payload = {
+      name: String(fd.get("name") ?? "").trim(),
+      phone: String(fd.get("phone") ?? "").trim(),
+      email: String(fd.get("email") ?? "").trim(),
+      service: String(fd.get("service") ?? ""),
+      capacity: String(fd.get("capacity") ?? ""),
+      message: String(fd.get("message") ?? "").trim(),
+    };
+
+    if (!payload.name || (!payload.phone && !payload.email)) {
+      setStatus("error");
+      setErrMsg(c.validationMsg);
+      return;
+    }
+
+    setStatus("loading");
+    setErrMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("request_failed");
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setErrMsg(c.errorMsg);
+    }
+  }
 
   useGSAP(() => {
     const el = sectionRef.current;
@@ -83,12 +125,7 @@ export function ContactForm() {
             data-contact-form
             className="bg-white rounded-[22px] border border-[#0E1B2A]/[0.08] p-8 shadow-[0_16px_60px_rgba(14,27,42,0.08)]"
           >
-            <form
-              action={`mailto:${COMPANY.email}`}
-              method="post"
-              encType="text/plain"
-              className="space-y-5"
-            >
+            <form onSubmit={handleSubmit} noValidate className="space-y-5">
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-[#0E1B2A] uppercase tracking-wide">
                   {c.fieldName}
@@ -170,10 +207,30 @@ export function ContactForm() {
 
               <button
                 type="submit"
-                className="w-full rounded-full bg-[#1AA64B] text-white font-bold py-4 text-base hover:bg-[#138A3E] transition-colors mt-2"
+                disabled={status === "loading"}
+                className="w-full rounded-full bg-[#1AA64B] text-white font-bold py-4 text-base hover:bg-[#138A3E] transition-colors mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {c.submit}
+                {status === "loading" ? c.sending : c.submit}
               </button>
+
+              {status === "success" && (
+                <div
+                  role="status"
+                  className="flex items-start gap-2.5 rounded-xl bg-[#1AA64B]/10 border border-[#1AA64B]/25 px-4 py-3 text-sm text-[#138A3E]"
+                >
+                  <CheckCircle size={20} weight="fill" className="shrink-0 text-[#1AA64B]" />
+                  <span>
+                    <strong className="font-bold">{c.successTitle}</strong>{" "}
+                    {c.successMsg}
+                  </span>
+                </div>
+              )}
+
+              {status === "error" && (
+                <p role="alert" className="text-sm text-red-600">
+                  {errMsg}
+                </p>
+              )}
             </form>
 
             <p className="text-xs text-[#7A7A7A] text-center mt-3">

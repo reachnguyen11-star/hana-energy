@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { LangProvider } from "@/contexts/LangContext";
 import { Navbar } from "@/components/site/Navbar";
 import { SmoothScroller } from "@/components/anim/SmoothScroller";
@@ -15,10 +16,44 @@ import { Partners } from "@/components/sections/Partners";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { Footer } from "@/components/site/Footer";
 
-export const metadata = {
-  title: "Hana Vietnam | Solar & Electrical Solutions for Factories and Industrial Parks",
-  description:
-    "Hana Vietnam provides safe, efficient, and sustainable energy solutions: industrial electrical infrastructure, rooftop solar PV, and battery energy storage systems (BESS) for factories and industrial parks.",
+const EN_TITLE =
+  "Hana Vietnam | Solar & Electrical Solutions for Factories and Industrial Parks";
+const EN_DESC =
+  "Hana Vietnam provides safe, efficient, and sustainable energy solutions: industrial electrical infrastructure, rooftop solar PV, and battery energy storage systems (BESS) for factories and industrial parks.";
+
+export const metadata: Metadata = {
+  title: EN_TITLE,
+  description: EN_DESC,
+  alternates: {
+    canonical: "/en",
+    languages: {
+      "vi-VN": "/",
+      "en-US": "/en",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    alternateLocale: "vi_VN",
+    url: "/en",
+    siteName: "Hana Vietnam",
+    title: EN_TITLE,
+    description: EN_DESC,
+    images: [
+      {
+        url: "/Hana_Energy_PC_banner_PC.png",
+        width: 1200,
+        height: 630,
+        alt: "Hana Vietnam — solar solutions for factories",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: EN_TITLE,
+    description: EN_DESC,
+    images: ["/Hana_Energy_PC_banner_PC.png"],
+  },
 };
 
 export default function HomeEn() {

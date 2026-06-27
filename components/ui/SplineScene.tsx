@@ -14,7 +14,7 @@ export function SplineScene() {
 
       {/* Orbit rings */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {[84, 130, 176].map((size, i) => (
+        {[84, 130, 176].map((size) => (
           <div
             key={size}
             className="absolute rounded-full border border-white/10"

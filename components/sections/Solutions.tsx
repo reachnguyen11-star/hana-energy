@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import Script from "next/script";
 import useTilt from "@/hooks/useTilt";
 import { SplineScene } from "@/components/ui/SplineScene";
@@ -223,6 +222,19 @@ function LightCard({ s }: { s: SolT }) {
           pointerEvents: "auto",
         }}
       >
+        {/* Fallback shown behind the 3D model (visible if the model-viewer
+           CDN is blocked/slow so the card never renders blank). */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 0,
+            borderRadius: "14px",
+            background:
+              "radial-gradient(ellipse 70% 60% at 50% 55%, rgba(52,195,106,0.16) 0%, transparent 70%)",
+          }}
+        />
         <model-viewer
           src="/models/panel-solar.glb"
           auto-rotate
@@ -231,7 +243,7 @@ function LightCard({ s }: { s: SolT }) {
           disable-zoom
           shadow-intensity="1"
           environment-image="neutral"
-          style={{ width: "100%", height: "100%", backgroundColor: "transparent" }}
+          style={{ position: "relative", zIndex: 1, width: "100%", height: "100%", backgroundColor: "transparent" }}
         ></model-viewer>
       </div>
       <div
@@ -355,7 +367,9 @@ export function Solutions() {
 
   return (
     <>
-      <Script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.97/build/spline-viewer.js" strategy="lazyOnload" />
+      {/* model-viewer web component (Google CDN) — used by LightCard's GLB panel.
+         Spline web component is NOT used (DarkCard renders a CSS-only SplineScene),
+         so no spline-viewer script is loaded. */}
       <Script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" strategy="lazyOnload" />
       <section
         ref={sectionRef}
@@ -369,7 +383,6 @@ export function Solutions() {
               tag="h2"
               segments={[
                 s.wordParts[0],
-                <br key="br0" />,
                 <SolarBadge key="badge" />,
                 s.wordParts[1],
                 <br key="br" />,

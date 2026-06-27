@@ -21,10 +21,51 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const SITE_URL = "https://hana-energy.vercel.app";
+const SITE_TITLE =
+  "Hana Việt Nam | Giải pháp Điện & Điện mặt trời mái nhà cho nhà máy, KCN";
+const SITE_DESC =
+  "Hana Việt Nam cung cấp giải pháp năng lượng an toàn, hiệu quả, bền vững: hạ tầng điện công nghiệp, điện mặt trời mái nhà và lưu trữ năng lượng (BESS) cho nhà máy và khu công nghiệp.";
+
 export const metadata: Metadata = {
-  title: "Hana Việt Nam | Giải pháp Điện & Điện mặt trời mái nhà cho nhà máy, KCN",
-  description:
-    "Hana Việt Nam cung cấp giải pháp năng lượng an toàn, hiệu quả, bền vững: hạ tầng điện công nghiệp, điện mặt trời mái nhà và lưu trữ năng lượng (BESS) cho nhà máy và khu công nghiệp.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESC,
+  alternates: {
+    canonical: "/",
+    languages: {
+      "vi-VN": "/",
+      "en-US": "/en",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    alternateLocale: "en_US",
+    url: "/",
+    siteName: "Hana Việt Nam",
+    title: SITE_TITLE,
+    description: SITE_DESC,
+    images: [
+      {
+        url: "/Hana_Energy_PC_banner_PC.png",
+        width: 1200,
+        height: 630,
+        alt: "Hana Việt Nam — giải pháp điện mặt trời cho nhà máy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESC,
+    images: ["/Hana_Energy_PC_banner_PC.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
 };
 
 export const viewport: Viewport = {
