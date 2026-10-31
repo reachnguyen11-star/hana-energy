@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowUpRight, SunDim, Play, Lightning } from "@phosphor-icons/react/dist/ssr";
 import { RotatingHeadline } from "@/components/anim/RotatingHeadline";
+import { HeroScrubVideo } from "@/components/anim/HeroScrubVideo";
 import { useT } from "@/contexts/LangContext";
 
 export function Hero() {
@@ -12,27 +13,10 @@ export function Hero() {
   return (
     <section id="top" className="relative">
       <div className="relative w-full overflow-hidden bg-navy-900 aspect-[9/16] md:aspect-[16/9]">
-        {/* LAYER 1: BANNER */}
-        <div data-hero-bg className="absolute inset-0">
-          <Image
-            src="/Hana_Energy_PC_banner_mobile.png"
-            alt="Hana Energy - solar factory"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center md:hidden"
-          />
-          <Image
-            src="/Hana_Energy_PC_banner_PC.png"
-            alt="Hana Energy - solar factory"
-            fill
-            priority
-            sizes="100vw"
-            className="hidden object-cover object-center md:block"
-          />
-        </div>
+        {/* LAYER 1: NIGHT → SUNRISE VIDEO, scrubbed by scroll */}
+        <HeroScrubVideo />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/30 via-transparent to-navy-900/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-900/10 via-transparent to-navy-900/60" />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-900/50 via-transparent to-transparent md:from-navy-900/40" />
 
         {/* LAYER 2: CONTENT */}

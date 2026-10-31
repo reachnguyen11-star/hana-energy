@@ -20,3 +20,6 @@ next-env.d.ts
 /public/screenshot_1782198287.png
 
 .vercel
+
+# Source videos (encoded copies live in public/video)
+dreamina-*.mp4
